@@ -1,0 +1,51 @@
+{
+  "identifier": "com.caleyjack.Kaleidoscope",
+  "name": "Kaleidoscope Diff",
+  "organization": "Caley Jack Steward",
+  "description": "Compare any two files across projects using Kaleidoscope!",
+  "version": "1.0",
+  "categories": ["commands"],
+  "repository": "https://github.com/robojack/KaleidoscopeDiff.novaextension",
+  "bugs": "https://github.com/robojack/KaleidoscopeDiff.novaextension/issues",
+  "license": "MIT",
+  "main": "main.js",
+
+  "entitlements": {
+    "filesystem": "readwrite",
+    "process": true
+  },
+
+  "commands": {
+    "extensions": [
+      {
+        "title": "Set File A",
+        "command": "com.caleyjack.Kaleidoscope.setFileA",
+        "shortcut": "ctrl-opt-←"
+      },
+      {
+        "title": "Set File B",
+        "command": "com.caleyjack.Kaleidoscope.setFileB",
+        "shortcut": "ctrl-opt-→"
+      },
+      {
+        "title": "Compare Files",
+        "command": "com.caleyjack.Kaleidoscope.compareFiles",
+        "shortcut": "ctrl-opt-↑"
+      },
+      {
+        "title": "Clear All Files",
+        "command": "com.caleyjack.Kaleidoscope.clearAllFiles",
+        "shortcut": "ctrl-opt-↓"
+      }
+    ]
+  },
+
+  "config": [
+    {
+      "key": "com.caleyjack.Kaleidoscope.toolcommand",
+      "title": "Command",
+      "type": "string",
+      "default": "/usr/local/bin/ksdiff"
+    }
+  ]
+}
