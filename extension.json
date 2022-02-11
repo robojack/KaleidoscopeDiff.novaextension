@@ -1,0 +1,49 @@
+{
+  "identifier": "org.Kaleidoscope.CaleyJack",
+  "name": "Kaleidoscope Diff",
+  "organization": "Caley Jack Steward",
+  "description": "Compare any two files across projects using Kaleidoscope!",
+  "version": "1.0",
+  "categories": ["commands"],
+
+  "main": "main.js",
+
+  "entitlements": {
+    "filesystem": "readwrite",
+    "process": true
+  },
+
+  "commands": {
+    "extensions": [
+      {
+        "title": "Set File A",
+        "command": "kaleidoscope.setFileA",
+        "shortcut": "ctrl-opt-←"
+      },
+      {
+        "title": "Set File B",
+        "command": "kaleidoscope.setFileB",
+        "shortcut": "ctrl-opt-→"
+      },
+      {
+        "title": "Compare Files",
+        "command": "kaleidoscope.compareFiles",
+        "shortcut": "ctrl-opt-↑"
+      },
+      {
+        "title": "Clear All Files",
+        "command": "kaleidoscope.clearAllFiles",
+        "shortcut": "ctrl-opt-↓"
+      }
+    ]
+  },
+
+  "config": [
+    {
+      "key": "kaleidoscope.toolcommand",
+      "title": "Command",
+      "type": "string",
+      "default": "/usr/local/bin/ksdiff"
+    }
+  ]
+}
