@@ -3,7 +3,7 @@
   "name": "Kaleidoscope Diff",
   "organization": "Caley Jack Steward",
   "description": "Compare any two files across projects using Kaleidoscope!",
-  "version": "1.1",
+  "version": "1.2",
   "categories": ["commands"],
   "repository": "https://github.com/robojack/KaleidoscopeDiff.novaextension",
   "bugs": "https://github.com/robojack/KaleidoscopeDiff.novaextension/issues",
@@ -28,14 +28,24 @@
         "shortcut": "ctrl-opt-→"
       },
       {
+        "title": "Clear All Files",
+        "command": "com.caleyjack.Kaleidoscope.clearAllFiles",
+        "shortcut": "ctrl-opt-↓"
+      },
+      {
         "title": "Compare Files",
         "command": "com.caleyjack.Kaleidoscope.compareFiles",
         "shortcut": "ctrl-opt-↑"
       },
       {
-        "title": "Clear All Files",
-        "command": "com.caleyjack.Kaleidoscope.clearAllFiles",
-        "shortcut": "ctrl-opt-↓"
+        "title": "Compare Working Tree",
+        "command": "com.caleyjack.Kaleidoscope.workingTreeDiff",
+        "shortcut": "ctrl-opt-k"
+      },
+      {
+        "title": "Open File",
+        "command": "com.caleyjack.Kaleidoscope.openFile",
+        "shortcut": "ctrl-opt-h"
       }
     ]
   },

@@ -112,6 +112,31 @@ nova.commands.register("com.caleyjack.Kaleidoscope.setFileB", (workspace) => {
 });
 
 nova.commands.register(
+  "com.caleyjack.Kaleidoscope.workingTreeDiff",
+  (workspace) => {
+    notify("Launching Kaleidoscope", "With working tree changeset");
+
+    var options = {
+      args: ["git", "difftool", "HEAD"],
+    };
+
+    options["cwd"] = nova.workspace.path;
+
+    var process = new Process("/usr/bin/env", options);
+
+    process.onStderr((line) => console.error("git difftool:", line.trim()));
+
+    process.onDidExit((status) => {
+      if (status !== 0) {
+        nova.workspace.showInformativeMessage("Could not open git difftool.");
+      }
+    });
+
+    process.start();
+  }
+);
+
+nova.commands.register(
   "com.caleyjack.Kaleidoscope.clearAllFiles",
   (workspace) => {
     console.log("Removing tmp files");
@@ -124,6 +149,39 @@ nova.commands.register(
     );
   }
 );
+
+nova.commands.register("com.caleyjack.Kaleidoscope.openFile", (workspace) => {
+  console.log("Open file with Kaleidoscope");
+
+  var cmd = nova.config.get("com.caleyjack.Kaleidoscope.toolcommand", "string");
+  if (cmd == null) cmd = "/usr/local/bin/ksdiff";
+  if (cmd != null) {
+    var te = nova.workspace.activeTextEditor;
+    var file = te.document.path;
+
+    // If the file is unsaved, get the text so we can store it temporarily
+    if (!file) {
+      nova.workspace.showInformativeMessage(
+        "This file has no version history. Save and commit this file before opening with Kaleidosope."
+      );
+      return;
+    }
+
+    notify("Launching Kaleidoscope", `For ${file.split("/").pop()}`);
+
+    var options = {
+      args: ["--no-stdin", file],
+    };
+
+    var process = new Process(cmd, options);
+
+    process.start();
+  } else {
+    nova.workspace.showInformativeMessage(
+      "No command has been specified, please check the extension preferences"
+    );
+  }
+});
 
 nova.config.onDidChange(
   "com.caleyjack.Kaleidoscope.toolcommand",
