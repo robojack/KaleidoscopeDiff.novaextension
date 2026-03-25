@@ -43,8 +43,8 @@
         "shortcut": "ctrl-opt-k"
       },
       {
-        "title": "Open File",
-        "command": "com.caleyjack.Kaleidoscope.openFile",
+        "title": "File History",
+        "command": "com.caleyjack.Kaleidoscope.fileHistory",
         "shortcut": "ctrl-opt-h"
       }
     ]

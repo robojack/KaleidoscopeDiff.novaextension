@@ -1,11 +1,11 @@
 ## Version 1.2
 
-Adds two new commands for viewing:
+Adds two new commands:
 
-- Working tree changes for the current project root
-- File history for the active tab's file
+- **Compare Working Tree** for the current project root
+- **File History** for the active document
 
-The working tree changes command will only work if you have set the `difftool` for you `git` installation. It could also open another app if it is not configured to use Kaleidoscope.
+The **Compare Working Tree** command will only work correctly if the `difftool` for your `git` installation is set to Kaleidoscope.
 
 ## Version 1.1
 
