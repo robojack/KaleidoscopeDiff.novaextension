@@ -40,7 +40,10 @@ nova.commands.register(
       return;
     }
 
-    notify("Launching Kaleidoscope", "Prepare for liftoff!");
+    notify(
+      "Compare Files",
+      "Opening a diff of your selected files in Kaleidoscope"
+    );
 
     const fileA = nova.fs.open(FILE_A_PATH);
     const fileB = nova.fs.open(FILE_B_PATH);
@@ -48,6 +51,8 @@ nova.commands.register(
     const cmd =
       nova.config.get("com.caleyjack.Kaleidoscope.toolcommand", "string") ??
       "/usr/local/bin/ksdiff";
+
+    // TODO: Add check for when the files are the same as this command will fail
 
     const process = new Process(cmd, {
       args: ["--no-stdin", fileArg(fileA), fileArg(fileB)],
@@ -85,23 +90,48 @@ nova.commands.register(
   (workspace) => {
     notify(
       "Compare Working Tree",
-      "Opening current project's changeset in Kaleidoscope"
+      "Opening active project's changeset in Kaleidoscope"
     );
 
-    const process = new Process("/usr/bin/env", {
-      args: ["git", "difftool", "HEAD"],
+    // Pre-check for changes before launching difftool.
+    // `git diff HEAD --quiet` exits 1 if changes exist, 0 if the tree is clean.
+    const check = new Process("/usr/bin/env", {
+      args: ["git", "diff", "HEAD", "--quiet"],
       cwd: nova.workspace.path,
     });
 
-    process.onStderr((line) => console.error("git difftool:", line.trim()));
-
-    process.onDidExit((status) => {
-      if (status !== 0) {
-        nova.workspace.showInformativeMessage("Could not open git difftool.");
+    check.onDidExit((status) => {
+      if (status === 0) {
+        nova.workspace.showInformativeMessage(
+          "No changes in working tree to compare."
+        );
+        return;
       }
+
+      notify(
+        "Compare Working Tree",
+        "Opening current project's changeset in Kaleidoscope"
+      );
+
+      const process = new Process("/usr/bin/env", {
+        args: ["git", "difftool", "HEAD"],
+        cwd: nova.workspace.path,
+      });
+
+      process.onStderr((line) => console.error("git difftool:", line.trim()));
+
+      process.onDidExit((exitStatus) => {
+        if (exitStatus !== 0) {
+          nova.workspace.showInformativeMessage(
+            "There was a problem opening this project in Kaleidosope. Please check the Extension Console for specific errors."
+          );
+        }
+      });
+
+      process.start();
     });
 
-    process.start();
+    check.start();
   }
 );
 
