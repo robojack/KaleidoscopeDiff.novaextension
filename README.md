@@ -1,4 +1,4 @@
-This unofficial **Kaleidoscope** extension allows you to diff any two files across projects, including unsaved files, by utilizing the **ksdiff** command-line tool.
+This unofficial **Kaleidoscope** extension allows you to diff any two files across projects, including unsaved files, by utilizing the **ksdiff** command-line tool. For users of Git, you can view a project's changeset to compare recent changes. File history is also supported for all version control integrations in Kaleidoscope 5 or greater.
 
 ## Requirements
 
@@ -13,8 +13,8 @@ Commands:
 - **Set File A** – Sets the first or left file
 - **Set File B** – Sets the second or right file
 - **Clear All Files** – Resets Files A & B
-- **Compare Files** – Opens files in Kaleidoscope
-- **Compare Working Tree** – Opens Git changeset in Kaleidoscope
-- **File History** – Opens file in Kaleidoscope
+- **Compare Files** – Opens a diff of Files A & B in Kaleidoscope
+- **Compare Working Tree** – Opens changeset for project in Kaleidoscope
+- **File History** – Opens active file in Kaleidoscope (requires v5 or greater)
 
-All available command options can be found by going to **Extensions → Kaleidoscope** or opening the command palette and typing `Kaleidoscope`.
+All available command options can be found by going to **Extensions** > **Kaleidoscope** or opening the command palette and typing `Kaleidoscope`.

@@ -40,11 +40,6 @@ nova.commands.register(
       return;
     }
 
-    notify(
-      "Compare Files",
-      "Opening a diff of your selected files in Kaleidoscope"
-    );
-
     const fileA = nova.fs.open(FILE_A_PATH);
     const fileB = nova.fs.open(FILE_B_PATH);
 
@@ -52,10 +47,23 @@ nova.commands.register(
       nova.config.get("com.caleyjack.Kaleidoscope.toolcommand", "string") ??
       "/usr/local/bin/ksdiff";
 
-    // TODO: Add check for when the files are the same as this command will fail
+    const fileAPath = fileArg(fileA);
+    const fileBPath = fileArg(fileB);
+
+    if (fileAPath === fileBPath) {
+      nova.workspace.showInformativeMessage(
+        "Both files are the same, there is nothing to compare."
+      );
+      return;
+    }
+
+    notify(
+      "Compare Files",
+      "Opening a diff of your selected files in Kaleidoscope"
+    );
 
     const process = new Process(cmd, {
-      args: ["--no-stdin", fileArg(fileA), fileArg(fileB)],
+      args: ["--no-stdin", fileAPath, fileBPath],
     });
 
     process.start();
@@ -159,7 +167,7 @@ nova.commands.register(
 
     if (!file) {
       nova.workspace.showInformativeMessage(
-        "This file has no version history. Save and commit this file before opening with Kaleidoscope."
+        "This file has no history. Save and commit it to your repository first."
       );
       return;
     }

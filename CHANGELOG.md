@@ -1,3 +1,9 @@
+## Version 1.3
+
+- Warn user when File A and File B are the same when comparing
+- Change **Compare Working Tree** command shortcut to `ctrl-opt-g`
+- README updates
+
 ## Version 1.2
 
 Adds two new commands:
